@@ -65,9 +65,7 @@ const GroupChatModel = ({ children }) => {
     const handleSearch = async (query) => {
         setSearch(query);
         if (!search) return;
-        setLoading(true);
         const data = await handleSearchAPI({ search });
-        console.log(data);
         if (!data.isError) {
             setLoading(false);
             setSearchResult(data.data);
@@ -104,7 +102,6 @@ const GroupChatModel = ({ children }) => {
     const handleDelete = (delUser) => {
         setSelectedUsers(selectedUsers.filter((sel) => sel._id !== delUser._id));
     };
-    // console.log(searchResult);
     return (
         <>
             <span onClick={onOpen}>{children}</span>

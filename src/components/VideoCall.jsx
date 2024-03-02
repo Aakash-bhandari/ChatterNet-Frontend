@@ -1,5 +1,5 @@
 import React from 'react'
-import { ViewIcon } from "@chakra-ui/icons";
+import './VideoCall.css'
 import CallAnnimation from './CallAnimations';
 import ReactPlayer from 'react-player'
 import {
@@ -41,27 +41,26 @@ function VideoCall({ myStream, setMyStream, sendStreams, remoteStream, setRemote
           <ModalHeader>
             Video Call - ChatterNet
           </ModalHeader>
-          <ModalBody style={{ width: "100%", height: "600px", border: "2px solid red" }}>
-            <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          <ModalBody className='modalbody' style={{ width: "100%", height: "600px", border: "2px solid red" }}>
+            <div className='callComp' style={{ display: "flex", justifyContent: "space-evenly"  }}>
               {
                 myStream ? <><ReactPlayer
                   url={myStream}
                   muted
                   playing
-                  width="600px"
-                  height="500px"
+                  width="100%"
+                  height="auto"
                 />
                 </> : 
                   <CallAnnimation />
               }
-
               {
                 remoteStream ? <><ReactPlayer
                   url={remoteStream}
                   muted
                   playing
-                  width="600px"
-                  height="500px"
+                  width="100%"
+                  height='auto'
                 /></> : <>
                    <CallAnnimation />
                 </>

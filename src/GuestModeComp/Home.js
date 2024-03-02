@@ -11,12 +11,8 @@ import { VStack } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import GuestChatPage from './GuestChatPage';
-// import io from "socket.io-client";
-// const ENDPOINT = "http://localhost:8000";
 import { useSocket } from '../Context/SocketProvider';
 function Home() {
-    // const socketInstance = io.connect("http://localhost:8000");
-    // console.log(socketInstance);
     const {socketInstance} = useSocket();
     const socket= socketInstance;
     console.log(socket);

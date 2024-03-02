@@ -118,16 +118,16 @@ const SideDrawer = () => {
                     </Button>
                 </Tooltip>
                 <Text fontSize="2xl" fontFamily="Work sans">
-                    Talk-A-Tive
+                    ChatterNet
                 </Text>
                 <div>
-                    <Menu>
+                    {/* <Menu>
                         <MenuButton p={1}>
-                            {/* <NotificationBadge
+                             <NotificationBadge
                                 count={notification.length}
                                 effect={Effect.SCALE}
-                            /> */}
-                            <BellIcon fontSize="2xl" m={1} />
+                            /> 
+                             <BellIcon fontSize="2xl" m={1} /> 
                         </MenuButton>
                         <MenuList pl={2}>
 
@@ -142,7 +142,7 @@ const SideDrawer = () => {
                             ))}
 
                         </MenuList>
-                    </Menu>
+                    </Menu> */}
                     <Menu>
                         <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
                             <Avatar
