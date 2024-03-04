@@ -4,7 +4,7 @@ const SocketContext = createContext(null);
 
 export const SocketProvider = (props) => {
     const socketInstance = io.connect("https://chatternet-backend.onrender.com");
-    console.log(socketInstance);
+
     return (
         <SocketContext.Provider value={{socketInstance}}>
             {props.children}

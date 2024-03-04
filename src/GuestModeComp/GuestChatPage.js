@@ -4,14 +4,27 @@ import { useEffect } from 'react';
 import { Box, Stack, Text } from "@chakra-ui/layout";
 import { FormControl } from "@chakra-ui/form-control";
 import '../components/style.css'
+import './GuestChatPage.css'
 import { Input } from "@chakra-ui/input";
+import { Tooltip } from "@chakra-ui/tooltip";
 import { Button } from "@chakra-ui/react";
 import Scrollchat from './Scrollchat';
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import annimations from '../annimations/Animation - 1707797831472.json'
+
+
+import {
+    Drawer,
+    DrawerBody,
+    DrawerContent,
+    DrawerHeader,
+    DrawerOverlay,
+} from "@chakra-ui/modal";
+import { useDisclosure } from "@chakra-ui/hooks";
 function GuestChatPage({ name, roomID, users, socket, latestUSer }) {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     const [currentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
@@ -90,10 +103,10 @@ function GuestChatPage({ name, roomID, users, socket, latestUSer }) {
         },
     };
     return (
-        <Box display="flex" justifyContent="space-between" width="100%" height="91.5vh" padding="10px">
-
+        <Box className='GuestComp' display="flex" justifyContent="space-between" width="100%" height="91.5vh" padding="10px">
             <Box
-                display="flex"
+                className='InnerDiv'
+                display={'flex'}
                 flexDir="column"
                 alignItems="center"
                 p={3}
@@ -112,14 +125,11 @@ function GuestChatPage({ name, roomID, users, socket, latestUSer }) {
                     justifyContent="space-between"
                     alignItems="center"
                 >
-                    <Text style={{ fontSize: "20px" }}>RoomID : {roomID}</Text>
-                    <Button
-                        display="flex"
-                        fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-                        onClick={() => handleLeave(name, roomID)}
-                    >
-                        Leave Room
-                    </Button>
+                    <Box display="flex" width={'100%'} alignItems={'center'} justifyContent={'space-between'} pb={2} my={4}>
+                        <Text fontSize={'25px'}>RoomID : {roomID}</Text>
+                        <Button colorScheme="red" onClick={() => handleLeave(name, roomID)} >Leave</Button>
+                    </Box>
+
                 </Box>
                 <Box
                     display="flex"
@@ -155,7 +165,27 @@ function GuestChatPage({ name, roomID, users, socket, latestUSer }) {
 
                 </Box>
             </Box>
-            {/* ///////////////////////////////////////////////////// */}
+            <Box
+                className='drawerBox'
+                display={'none'}
+                background="white"
+                justifyContent={'space-between'}
+                alignItems={'center'}
+                width="100%"
+                padding="5px 10px 5px 10px"
+                borderWidth="5px"
+            >
+                <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
+                    <Button variant="ghost" onClick={onOpen}>
+                        <Text d={{ base: "none", md: "flex" }} px={4}>
+                            {`Room- ${roomID}`}
+                        </Text>
+                    </Button>
+                </Tooltip>
+                <Text fontSize="2xl" fontFamily="Work sans">
+                    GuestMode
+                </Text>
+            </Box>
 
             {
                 users.length > 1 ? (
@@ -221,7 +251,43 @@ function GuestChatPage({ name, roomID, users, socket, latestUSer }) {
                     </Box >
                 )
             }
+             <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerBody>
+                        <Box display="flex" alignItems={'center'} justifyContent={'space-between'}  pb={2} my={4}>
+                            <Text>Active Users</Text>
+                            <Button colorScheme="red" onClick={() => handleLeave(name, roomID)}>Leave Group</Button>
+                        </Box>
+                        {users ? (
+                            <Stack overflowY="scroll" my={8}>
+                                {users.map((user) => (
+                                    <Box
+                                        cursor="pointer"
+                                        px={3}
+                                        py={2}
+                                        borderRadius="lg"
+                                        key={user.id}
+                                        bg={true ? "#38B2AC" : "#E8E8E8"}
+                                        color={"white"}
+                                    >
+                                        <Text>
+                                            {user.name}
+                                        </Text>
+                                    </Box>
+                                ))}
+                            </Stack>
+                        ) : (
+                            <>No Chats </>
+                        )}
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer> 
         </Box>
+
+
+
+
     );
 }
 
